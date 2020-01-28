@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+service RecognitionService {
+    rpc recognise (RecogniseRequest) returns (RecogniseResponse) {}
+}
+
+message RecogniseRequest {
+    string image = 1;
+    string faces = 2;
+    string camera_id = 3;
+    string frame_id = 4;
+}
+
+message RecogniseResponse {
+    optional int32 status = 1;
+    optional string message = 2;
+    optional string frame_id = 3;
+    repeated UserActivityEvent log = 4;
+}
+
+message UserActivityEvent {
+   optional string event_confidence = 1;
+   optional string camera_name = 2;
+   optional string record_id = 3;
+   optional string unknown_id = 4;
+   optional string person_name = 5;
+   optional string event_description = 6;
+   optional string event_date = 7;
+   optional string event_timestamp = 8;
+   optional string image_path = 9;
+   optional string intent = 10;
+   optional string type = 11;
+   optional bool display = 12;
+   optional bool access = 13;
+   optional string user_type = 14;
+}

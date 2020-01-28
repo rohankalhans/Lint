@@ -1,0 +1,75 @@
+{
+  "name": "gatewayservice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GRPC based nodejs service for handling recognition",
+  "keywords": [
+    "GRPC"
+  ],
+  "author": {
+    "name": "Rishabh Sonal",
+    "email": "rishabh@techolution.com",
+    "url": "https://github.com/rishabh-sonal"
+  },
+  "bugs": {
+    "url": "https://github.com/Techolution/FaceOpen-Api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Techolution/FaceOpen-Api.git"
+  },
+  "homepage": "https://github.com/Techolution/FaceOpen-Api/RecognitionService/#readme",
+  "main": "index.js",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=10.16.1"
+  },
+  "scripts": {
+    "build": "rm -rf dist && webpack --mode=production",
+    "prestart": "",
+    "start": "babel-watch ./src/index.js",
+    "poststart": "",
+    "security-check": "npm audit",
+    "test": "npm run lint",
+    "lint": "./node_modules/.bin/eslint ."
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "@grpc/proto-loader": "^0.5.2",
+    "appmetrics": "^5.1.1",
+    "appmetrics-dash": "^5.2.0",
+    "async": "^3.1.0",
+    "cors": "^2.8.5",
+    "csv-writer": "^1.5.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.0",
+    "gc-heap-stats": "^1.0.0",
+    "grpc": "^1.24.1",
+    "helmet": "^3.21.2",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "nano-time": "^1.0.0",
+    "node-gyp": "^6.0.1",
+    "swagger-ui-express": "^4.1.2",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/plugin-transform-arrow-functions": "^7.2.0",
+    "@babel/preset-env": "^7.5.5",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-watch": "^7.0.0",
+    "chalk-animation": "^1.6.0",
+    "eslint": "^6.5.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

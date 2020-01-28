@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+service LockService {
+  rpc getLockStatus(LockStatusRequest) returns (LockResponse) {}
+  rpc controlLock(LockControlRequest) returns (LockDetails) {}
+  rpc deleteLock(LockControlRequest) returns (GenericResponse) {}
+  rpc lockStatus(LockDetails) returns (GenericResponse) {}
+  rpc enableBuzzer(BuzzerRequest) returns (GenericResponse) {}
+}
+
+message LockControlRequest {
+  string lock_id = 1;
+  int32 lock_status = 2;
+  string buzzer = 3;
+}
+
+message LockStatusRequest {
+  string lock_id = 1;
+}
+
+message LockDetails {
+  string lock_id = 1;
+  string wifi_strength = 2;
+  int32 lock_status = 3;
+  optional string buzzer = 4;
+  optional string ip_address= 5;
+  optional string control_source = 6;
+  optional string door_id = 7;
+  optional int32 door_status = 8;
+}
+
+message GenericResponse {
+    int32 status = 1;
+    string message = 2;
+}
+
+message BuzzerRequest {
+  string lock_id = 1;
+  string buzzer = 2;
+}
+
+message LockResponse {
+  int32 status = 1;
+  string message = 2;
+  optional LockDetails lock = 3;
+}

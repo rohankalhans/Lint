@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service DbService {
+    //gateway to db
+    rpc getAPKVersion (Empty) returns(AndroidConfig) {}
+}
+
+message Empty {}
+
+message AndroidConfig {
+    optional string apk_url = 1;
+    optional string apk_version = 2;
+}

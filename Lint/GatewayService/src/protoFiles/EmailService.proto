@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+service EmailService {
+    rpc getEmailConfiguration (Empty) returns (EmailConfiguration) {}
+    rpc saveEmailConfiguration (EmailConfiguration) returns (GenericResponse) {}
+    rpc sendEmail (EmailRequestList) returns (GenericResponse) {}
+}
+
+message EmailConfiguration {
+    string host = 1;
+    bool secure = 2;
+    int32 port = 3;
+    FromMail fromEmail = 4;
+    repeated ToMail toEmail = 5;
+    CompanyDetails companyDetails = 6;
+    EmergencyContacts emergencyContacts = 7;
+}
+
+message FromMail {
+    string mailId = 1;
+    string password = 2;
+    string alias = 3;
+}
+
+message ToMail {
+    string mailId = 1;
+}
+
+message CompanyDetails{
+    string name = 1;
+    string logo = 2;
+}
+
+message EmergencyContacts{
+    string email = 1;
+    string number = 2;
+}
+
+message EmailRequestList {
+    repeated EmailRequest emailRequests = 1;
+}
+
+message EmailRequest {
+    string email = 1;
+    string template = 2;
+    string subject = 3;
+    string templateDetails = 4;
+}
+
+message Empty {}
+
+message GenericResponse {
+    int32 status = 1;
+    string message = 2;
+}

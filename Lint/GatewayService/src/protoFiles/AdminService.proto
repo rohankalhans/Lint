@@ -1,0 +1,1023 @@
+
+syntax = "proto3";
+
+service AdminService {
+
+    // admin to db
+    rpc getUsers (User) returns (UserResponse) {}
+    rpc getNotification (Empty) returns (notification) {}
+    rpc getDoors (Query) returns (DoorResponse) {}
+    rpc getDoorsWithLocks (GenericRequest) returns (DoorResponse) {}
+    rpc getDoorsOpenedCount (Query) returns (CountResponse) {}
+    rpc getCameras (Camera) returns (CameraResponse) {}
+    rpc getLocks (Lock) returns (LockResponse) {}
+    rpc getCloudSettings (Empty) returns (CloudServiceResponse) {}
+    rpc searchWidget (SearchUserWidgetQueryParams) returns (PaginatedUserWidgetResponse) {}
+    rpc searchCamera (SearchWidgetQueryParams) returns (PaginatedCameraWidgetResponse) {}
+    rpc searchDoor (SearchWidgetQueryParams) returns (PaginatedDoorWidgetResponse) {}
+    rpc revokeSelectedUser (selectedUser) returns (GenericResponse) {}
+    rpc deleteSelectedUsers (selectedUsers) returns (GenericResponse) {}
+    rpc terminateSelectedUser (selectedUser) returns (GenericResponse) {}
+    rpc removeSelectedAdmin (selectedUser) returns (GenericResponse) {}
+    rpc makeSelectedAdmin (selectedUser) returns (GenericResponse) {}
+    rpc deleteSelectedDoor (selectedDoor) returns (GenericResponse) {}
+    rpc deleteSelectedCamera (selectedCamera) returns (GenericResponse) {}
+
+
+
+    rpc updateUser (User) returns (GenericResponse) {}
+    rpc saveDoor (Door) returns (GenericResponse) {}
+    rpc saveCamera (Camera) returns (GenericResponse) {}
+    rpc updateDoor (DoorUpdate) returns (GenericResponse) {}
+    rpc updateCamera (CameraUpdate) returns (GenericResponse) {}
+    rpc updateLock (Lock) returns (GenericResponse) {}
+    rpc updateCloudSetting (CloudService) returns (GenericResponse) {}
+    rpc getUserApproved (User) returns (GenericResponse) {}
+
+    rpc getCounts (Empty) returns (Counts) {}
+    rpc getAlerts (Alert) returns (AlertResponse) {}
+    rpc getActivities (Activity) returns (ActivityResponse) {}
+
+    rpc deleteDoor (Door) returns (GenericResponse) {}
+    rpc deleteCamera (Camera) returns (GenericResponse) {}
+    rpc deleteLock (Lock) returns (GenericResponse) {}
+
+    rpc matchPassword (IdPassword) returns(IsMatched) {}
+    rpc setPassword (IdPassword) returns(GenericResponse) {}
+    rpc quickGrant (Query) returns (GenericResponse) {}
+    rpc emergencyExit (Query) returns (GenericResponse) {}
+    rpc getEmergencyExitStatus (Empty) returns (EmergencyExitStatus) {}
+
+    rpc camera_init (Camera) returns (CameraAck) {}
+    rpc camera_stop (Camera) returns (CameraAck) {}
+    rpc controlCamera (Camera) returns (GenericResponse) {}
+
+
+  //admin
+  rpc getUsersForNotification (EmptyRequest) returns (NotifyingUsers) {}
+  rpc getUrlForRegistrationDesk(UrlCreationData) returns (Url){}
+  rpc sendMailSelfRegistration (inviteOrRejectEmailRequest) returns (GenericResponse) {}
+  rpc resendInviteMail (inviteOrRejectEmailRequest) returns (GenericResponse) {}
+  rpc sendRejectEmail (RejectEmailRequest) returns (GenericResponse) {}
+  rpc sendAdminAccessEmail(AdminDetailedCredentials) returns (GenericResponse){}
+  rpc sendCloudEnableStatus(ListOfEmails) returns (GenericResponse) {}
+
+
+  // CAMERA APIs
+  rpc updateCamerasOnRTSPDATA (RTSP_RESPONSE) returns(GenericResponse) {}
+  rpc updateCamerasOnStarted (CameraAck) returns(GenericResponse) {}
+
+  // DOOR APIs
+  rpc removeCameraFromDoor (DoorWithCamera) returns (GenericResponse) {}
+
+  //db && admin
+
+  rpc doorAlert (Door1) returns (GenericResponse) {}
+  rpc enableCloud (CloudMessage) returns (GenericResponse) {}
+  rpc consumerRegisterLeft (registerLeft) returns (GenericResponse) {}
+  rpc consumerRegisterRight (registerRight) returns (GenericResponse) {}
+  rpc getAllUsersByEmails (ArrayOfEmails) returns (GenericResponse) {}
+  rpc consumerRegisterStraight (registerStraight) returns (GenericResponse) {}
+  rpc consumerReRegister (reregister) returns (GenericResponse) {}
+
+  //db
+  rpc userRegistration (UserRegRequest) returns (GenericResponse) {}
+  rpc emailValidation (emailValidate) returns (GenericResponse) {}
+  rpc saveDeviceInfo (DeviceInfo) returns (GenericResponse) {}
+  rpc storeActivity (UserActivity) returns (GenericResponse) {}
+  rpc storeAlert (UserActivity) returns (Alert) {}
+  rpc getAdminDetailedCredentials (RecordId) returns (AdminDetailedCredentials) {}
+  rpc updateUserAccessPointsWithDoorId (AccessEvent) returns(GenericResponse) {}
+  rpc createRating (Rating) returns (Rating) {}
+
+  //db && user auth
+  rpc checkIfAccessible (UserAccessible) returns(Accessibility) {}
+
+  //db && login
+  rpc checkForValidCredentials (Credentials) returns (LoginResponse) {}
+  rpc forgotPassword (Email) returns(GenericResponse) {}
+
+
+  //admin && db
+  rpc getSavedDoorEvents (EmptyRequest) returns (DoorEvents) {}
+  rpc clearDoorEvent (DoorId) returns (GenericResponse) {}
+  rpc addDoorEvent (DoorEvent) returns (GenericResponse) {}
+  rpc getDisabledDoorCount (EmptyRequest) returns(DoorCount) {}
+
+  //cam service
+  rpc storeAlertForCamera (CamAlertData) returns (GenericResponse) {}
+
+  //LockService
+  rpc addLock (LockDetails) returns (LockResponse1) {}
+  rpc updateBuzzer (LockDetails) returns (GenericResponse) {}
+  rpc getLock (LockDetails) returns (LockDetails) {}
+  rpc getAllLocks (LockDetails) returns (ListOfLocks) {}
+}
+
+message Empty {}
+
+message GenericRequest {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+}
+
+message CountResponse {
+    int32 count = 1;
+}
+
+message EmergencyExitStatus {
+    bool emergencyExitStatus = 1;
+}
+
+message Query {
+    optional string query = 1;
+}
+
+message notification {
+    repeated NotificationResponse notifications = 1;
+}
+message NotificationResponse {
+    optional Name name = 1;
+    optional string user_id = 2;
+}
+
+message selectedUser {
+       string users = 1;
+       string status = 2;
+       string role = 3;
+       optional string emails = 4;
+}
+message selectedUsers {
+    repeated string users = 1;
+}
+message selectedDoor {
+    string doors = 1;
+}
+message selectedCamera {
+    string cameras = 1;
+}
+
+
+message User {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+
+    optional Access access = 3;
+    repeated string accessPoints = 4;
+    optional string email = 5;
+    optional string employee_id = 6;
+    optional string gender = 7;
+    optional string image = 8;
+    optional Name name = 9;
+    optional OtherDetails otherDetails = 10;
+    optional string password = 11;
+    optional string phoneNumber = 12;
+    optional string role = 13;
+    optional string status = 14;
+    optional string type = 15;
+    optional string user_id = 16;
+    optional string updated_by = 17;
+    optional string updatedAt = 18;
+    optional string createdAt = 19;
+    optional string doorNames = 20;
+    optional string sort = 21;
+}
+message Access {
+    optional bool forever = 1;
+    optional string fromDate = 2;
+    optional string toDate = 3;
+}
+message Name {
+    optional string first = 1;
+    optional string last = 2;
+}
+message UserResponse {
+    repeated User users = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+
+message Door {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+
+    optional string _id = 3;
+    repeated CameraInDoor cameras = 4;
+    optional string door_id = 5;
+    optional bool enabled = 6;
+    optional string lock_id = 7;
+    optional string name = 8;
+    optional bool selected = 9;
+    optional string door_type = 10;
+    optional int32 lock_status = 11;
+    optional bool search = 12;
+    optional string previous_lock = 13;
+}
+
+message DoorUpdate {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+
+    optional string _id = 3;
+    repeated CamerawithCameraId cameras = 4;
+    optional string door_id = 5;
+    optional bool enabled = 6;
+    optional string lock_id = 7;
+    optional string name = 8;
+    optional bool selected = 9;
+    optional string door_type = 10;
+    optional int32 lock_status = 11;
+    optional bool search = 12;
+    optional string previous_lock = 13;
+    
+}
+message CameraInDoor {
+     CamerawithCameraId camera_id = 4;
+}
+message CamerawithCameraId {
+    string _id = 1;
+    string camera_name = 2;
+    string used_for = 3;
+}
+message DoorResponse {
+    repeated Door doors = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+message responseUserData {
+    string email = 1;
+    string updated_by = 2;
+    string updatedAt = 3;
+}
+
+message Camera {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+
+    optional int32 blur_threshold = 3;
+    optional string _id = 4;
+    optional string camera_name = 5;
+    optional string camera_type = 6;
+    optional doorData door_id = 7;
+    optional int32 edge_threshold = 8;
+    optional string mac_id = 9;
+    optional bool running = 10;
+    optional bool spoof = 11;
+    optional string used_for = 12;
+    optional string camera_in_use = 13;
+    optional bool search = 14;
+    
+}
+
+message CameraUpdate {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+
+    optional int32 blur_threshold = 3;
+    optional string _id = 4;
+    optional string camera_name = 5;
+    optional string camera_type = 6;
+    optional string door_id = 7;
+    optional int32 edge_threshold = 8;
+    optional string mac_id = 9;
+    optional bool running = 10;
+    optional bool spoof = 11;
+    optional string used_for = 12;
+    optional string camera_in_use = 13;
+    optional bool search = 14;
+    
+}
+message doorData { 
+        optional bool enabled =  1;
+       optional int32 lock_status = 2;
+       optional string door_type = 3;
+       optional string _id = 4;
+       optional string lock_id = 5;
+       optional string name =  6;
+}
+message CameraResponse {
+    repeated Camera cameras = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+
+message Lock {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+
+    optional string _id = 3;
+    optional string buzzer = 4;
+    optional string control_source = 5;
+    optional string door_id = 6;
+    optional string ip_address = 7;
+    optional string lock_id = 8;
+    optional int32 lock_status = 9;
+    optional string wifi_strength = 10;
+    optional int32 door_status = 11;
+}
+message LockResponse {
+    repeated Lock locks = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+
+message CloudService{
+    string service = 1;
+	bool enable = 2;
+	string updated_by = 3;
+}
+message CloudServiceResponse {
+    repeated CloudService cloudServices = 1;
+}
+
+
+message Counts {
+    int32 admins = 1;
+    int32 alerts = 2;
+    int32 devices = 3;
+    int32 employees = 4;
+    int32 guests = 5;
+    int32 terminatedUsers = 6;
+}
+
+message Alert {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+
+    string door = 3;
+    string door_id = 4;
+    string eventDescription = 5;
+    string image = 6;
+    string name = 7;
+    string status = 8;
+    string time = 9;
+}
+message AlertResponse {
+    repeated Alert alerts = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+message Activity {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+
+    string door = 3;
+    string image = 4;
+    string imageInDb = 5;
+    string name = 6;
+    string status = 7;
+    string time = 8;
+    string type = 9;
+    string user_type = 10;
+}
+message ActivityResponse {
+    repeated Activity activities = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+message IdPassword {
+    string user_id = 1;
+    string password = 2;
+}
+
+
+message IsMatched {
+    bool flag = 1;
+}
+
+
+message UserWidgetQueryParams {
+    optional int32 offset = 1;
+    optional int32 limit = 2;
+    optional string email = 3;
+    optional string firstname = 4;
+    optional string gender = 5;
+    optional string lastname = 6;
+    optional string role = 7;
+    optional string status = 8;
+    optional string type = 9;
+    optional string userId = 10;
+}
+
+message SearchUserWidgetQueryParams{
+    OffsetLimit offsetLimit = 1;
+    optional string type = 2;
+    string status = 3;
+    optional string role = 4;
+    optional string queryString = 5;
+}
+
+message SearchWidgetQueryParams{
+    OffsetLimit offsetLimit = 1;
+    optional string queryString = 2;
+}
+
+message OffsetLimit{
+    int32 offset = 1;
+    int32 limit = 2;
+    optional string type = 3;
+}
+
+message PaginatedUserWidgetResponse {
+    repeated User users = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+message PaginatedCameraWidgetResponse {
+    repeated Camera cameras = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+message PaginatedDoorWidgetResponse {
+    repeated Door doors = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+message UserWidget {
+    string user_id = 1;
+    string name = 2;
+    string email = 3;
+    string image = 4;
+    string type = 5;
+}
+
+message CamAck {
+    int32 status = 1;
+    string message = 2;
+    string camera_name = 3;
+}
+
+message CameraAck {
+    repeated CamAck cam_status = 1;
+}
+
+message RejectEmailRequest {
+    string email = 1;
+    string user_id = 2;
+    string name = 3;
+    string status = 4;
+    string comments = 5;
+    string type = 6;
+    string updated_by = 7;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+message RegImageData {
+    repeated string straight = 1;
+    repeated string right = 2;
+    repeated string left = 3;
+}
+//registration service
+
+message DoorWithCamera {
+    string camera_id = 1;
+    string door_id = 2;
+}
+
+message Rating {
+    optional int32 rating = 1;
+    optional string comment = 2;
+    optional string email = 3;
+    optional string _id = 4;
+    optional int32 status = 5;
+    optional string message = 6;
+}
+
+message CameraId {
+    string camera_id = 1;
+}
+
+message CamAlertData {
+    bool running = 1;
+    string name = 2;
+}
+
+message ThresholdSize {
+    int32 thresholdSize = 1;
+}
+
+message StorageSize {
+    int32 totalSize = 1;
+}
+
+message Event {
+    string name = 1;
+    string data = 2;
+}
+
+message CameraName {
+    string camera_name = 1;
+}
+
+message CameraStatus {
+    bool running = 1;
+}
+
+message PaginatedActivityResponse {
+    repeated Activity activities = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+
+message DoorCount {
+    int32 count = 1;
+}
+
+message DoorEvents {
+    repeated DoorEvent doorEvents = 1;
+}
+
+message DoorEvent {
+    string doorId = 1;
+    string time = 2;
+    string state = 3;
+}
+
+message EmptyRequest {}
+
+message DoorId {
+    optional string doorId = 1;
+    optional int32 offset = 2;
+    optional int32 limit = 3;
+    optional string _id = 4;
+    optional string name = 5;
+}
+
+message RecordResponse {
+    repeated PersonDetails personDetails = 1;
+}
+
+message PersonDetails {
+    string id = 1;
+    bool isPiggyback = 2;
+    string createdAt = 3;
+    repeated PersonRecord trained = 4;
+    repeated PersonRecord unTrained = 5;
+}
+
+message PersonRecord {
+    string _id = 1;
+    string recordId = 2;
+    string cameraName = 3;
+    string eventTimeStamp = 4;
+    string detectedImagePath = 5;
+    string enrolledImagePath = 6;
+    string eventDescription = 7;
+    string eventConfidence = 8;
+    string Person_Name = 9;
+    string intent = 10;
+    bool duplicate = 11;
+}
+
+message UsersResponse {
+    repeated UserDetailsInfo users = 1;
+}
+
+message UpdateUserInfo {
+    optional string type = 1;
+    optional string role = 2;
+    optional Name name = 3;
+    optional string gender = 4;
+    optional string email = 5;
+    optional string employeeID = 6;
+    optional string phoneNumber = 7;
+    optional OtherDetails otherDetails = 8;
+    optional string status = 9;
+    repeated string accessPoints = 10;
+    optional ImageInfo image = 11;
+    optional bool approved = 12;
+    optional bool trained = 13;
+    optional bool rejectedFlag = 14;
+}
+
+message UserDetailsInfo {
+    optional string type = 1;
+    optional Name name = 2;
+    optional string designation = 3;
+    optional string employeeID = 4;
+    optional ImageInfo image = 5;
+    optional string email = 6;
+    optional string phoneNumber = 7;
+    optional string gender = 8;
+    optional OtherDetails otherDetails = 9;
+    repeated string accessPoints = 10;
+    optional bool approved = 11;
+    optional bool trained = 12;
+    optional string id = 13;
+    optional string title = 14;
+    optional string password = 15;
+    optional bool rejectedFlag = 16;
+    optional Access access = 17;
+    optional string userId = 18;
+}
+
+message ImageInfo {
+    optional string left = 1;
+    optional string right = 2;
+    optional string straight = 3;
+    optional string top = 4;
+    optional string bottom = 5;
+}
+
+message OtherDetails {
+    optional string doj = 1;
+    optional string dob = 2;
+    optional string manager = 3;
+    optional string companyName = 4;
+    optional string designation = 5;
+    optional string visitorId = 6;
+}
+
+message RecordId {
+    string id = 1;
+}
+
+message GenericResponse {
+    int32 status = 1;
+    string message = 2;
+}
+
+message GenericResponse_Cam {
+    int32 status = 1;
+    string message = 2;
+    optional CameraDetails camera = 3;
+}
+
+message inviteOrRejectEmailRequest {
+    string email = 1;
+    string type = 2;
+    string updated_by = 3;
+    optional string user_id = 4;
+}
+
+message ConfigurationInfo {
+    string originFullPath = 1;
+    string email = 2;
+    string type = 3;
+    optional bool cloudStatus = 4;
+}
+
+message UserByIdResponse {
+    UserDetailsInfo userData = 1;
+}
+
+message NotifyingUsers {
+    repeated UserForNotification userForNotification = 1;
+}
+
+message UserForNotification {
+    string id = 1;
+    Name name = 2;
+    string image = 3;
+}
+
+message Door1 {
+    optional string _id = 1;
+    repeated Camera cameras = 2;
+    string lockId = 3;
+    string name = 4;
+    optional bool selected = 5;
+    optional bool enabled = 6;
+    optional bool unknownEnabled = 7;
+}
+
+message UserRegRequest {
+    UserDetailsInfo person = 1;
+}
+
+message emailValidate {
+    string email = 1;
+}
+
+message EventRequest {
+    repeated UserActivity events = 1;
+}
+
+message UserActivity {
+    string recordId = 1;
+    string cameraName = 2;
+    string eventTimeStamp = 3;
+    string detectedImagePath = 4;
+    string enrolledImagePath = 5;
+    string eventDescription = 6;
+    string eventConfidence = 7;
+    string Person_Name = 8;
+    string intent = 9;
+    bool duplicate = 10;
+    bool accessGranted = 11;
+}
+
+message EmailRequest {
+    EmailConfiguration emailConfiguration = 1;
+}
+
+message EmailConfiguration {
+    string host = 1;
+    bool secure = 2;
+    int32 port = 3;
+    FromMail fromEmail = 4;
+    repeated ToMail toEmail = 5;
+    CompanyDetails companyDetails = 6;
+    EmergencyContacts emergencyContacts = 7;
+}
+
+message FromMail {
+    string mailId = 1;
+    string password = 2;
+    string alias = 3;
+}
+
+message ToMail {
+    string mailId = 1;
+}
+
+message CompanyDetails {
+    string name = 1;
+    string logo = 2;
+}
+
+message EmergencyContacts {
+    string email = 1;
+    string number = 2;
+}
+
+message MailConfigResponse {
+    string host = 1;
+    bool secure = 2;
+    int32 port = 3;
+    FromMail fromEmail = 4;
+    repeated string toEmail = 5;
+}
+
+message DeviceInfo {
+    string userAgent = 1;
+    string os = 2;
+    string browser = 3;
+    string device = 4;
+    string os_version = 5;
+    string browser_version = 6;
+}
+
+message UserUpdateRequest {
+    UpdateUserInfo person = 1;
+    optional string id = 2;
+}
+
+message RequestToken {
+    string token = 1;
+}
+
+message RequestSetToken {
+    string id = 1;
+    string token = 2;
+}
+
+message Credentials {
+    string email = 1;
+    optional string password = 2;
+}
+
+message UserByEmailResponse {
+    UserDetailsInfo userData = 1;
+}
+
+message UserAccessible {
+    string id = 1;
+    string cameraName = 2;
+}
+
+message Accessibility {
+    bool status = 1;
+    optional string lockId = 2;
+    optional string name = 3;
+    bool shouldSendMqtt = 4;
+}
+
+message PaginatedInviteeResponse {
+    repeated Invitee invitees = 1;
+    int64 current = 2;
+    int64 count = 3;
+}
+
+message Invitee {
+    string email = 1;
+    string time = 2;
+    string type = 3;
+}
+
+
+message AccessEventList {
+    repeated AccessEvent accessEventList = 1;
+}
+
+message AccessEvent {
+    optional string id = 1;
+    string userId = 2;
+    string doorId = 3;
+    string action = 4;
+    string runtime = 5;
+}
+
+message AccessEventId {
+    string id = 1;
+}
+
+message AccessEventQueryDate {
+    string date = 1;
+}
+
+message UserId {
+    string id = 1;
+}
+
+message AdminHandleData {
+    repeated string ids = 1;
+    optional bool flag = 2;
+}
+
+message CameraDetails {
+    optional string camera_name = 1;
+    optional string camera_rtsp = 2;
+    optional string camera_id = 3;
+    optional string model_instance = 4;
+    optional string X1 = 5;
+    optional string X2 = 6;
+    optional string Y1 = 7;
+    optional string Y2 = 8;
+    optional string used_for = 9;
+    optional bool running = 10;
+    optional string mac_id = 11;
+    optional int32 face_detection_size = 12;
+    optional int32 blur_threshold = 13;
+    optional int32 edge_threshold = 14;
+    optional bool spoof = 15;
+    optional string door = 16;
+    optional string camera_type = 17;
+}
+
+message GenricId {
+    string id = 1;
+}
+
+message Status {
+    string status = 1;
+}
+
+message PaginatedAlertResponse {
+    repeated Alert alerts = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+message AdminDetailedCredentials {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+    optional bool isForgotPassword = 4;
+    optional bool flag = 5;
+}
+
+message Url {
+    string url = 1;
+}
+
+message ImageData {
+    bytes data = 1;
+}
+
+
+message CloudSettings {
+    repeated CloudMessage cloudSettings = 1;
+}
+
+message CloudMessage{
+    string service = 1;
+	bool enable = 2;
+	string updated_by = 3;
+}
+
+message Email {
+    string email = 1;
+}
+
+message ListOfCameras {
+    repeated CameraDetails listOfCameras = 1;
+    int32 current = 2;
+    int32 count = 3;
+}
+
+message CamDetails {
+    optional string mac_id = 1;
+    optional string camera_id = 2;
+    optional string running = 3;
+    optional string camera_rtsp = 4;
+    optional int32 offset = 5;
+    optional int32 limit = 6;
+    optional string name = 7;
+    optional string door = 8;
+}
+
+message RTSP_DATA {
+    string mac_id = 1;
+    string rtsp = 2;
+}
+
+message RTSP_RESPONSE {
+    repeated RTSP_DATA rtsp_data = 1;
+}
+
+
+/* LockService messages */
+message LockDetails {
+  optional string lock_id = 1;
+  optional string wifi_strength = 2;
+  optional int32 lock_status = 3;
+  optional string buzzer = 4;
+  optional string ip_address = 5;
+  optional string control_source = 6;
+  optional string door_id = 7;
+  optional int32 door_status = 8;
+}
+
+message ListOfLocks {
+  repeated LockDetails Locks = 1;
+  int32 current = 2;
+  int32 count = 3;
+}
+
+message LockResponse1 {
+  int32 status = 1;
+  string message = 2;
+  optional LockDetails lock = 3;
+}
+
+
+message registerLeft {
+    string email = 1;
+    RegImageDataLeft imageData = 2;
+    string filePath = 3;
+}
+
+message registerRight {
+    string email = 1;
+    RegImageDataRight imageData = 2;
+    string filePath = 3;
+}
+
+message registerStraight {
+    string firstName = 1;
+    string lastName = 2;
+    string email = 3;
+    string dob = 4;
+    RegImageDataStraight imageData = 5;
+    string filePath = 6;
+}
+message reregister {
+    string email = 1;
+    string dob = 2;
+    string firstName = 3;
+    string lastName = 4;
+}
+
+message RegImageDataStraight {
+    repeated string straight = 1;
+}
+message RegImageDataRight {
+    repeated string right = 1;
+}
+message RegImageDataLeft {
+    repeated string left = 1;
+}
+
+message ListOfEmails {
+    repeated Email emails = 1;
+}
+
+message ArrayOfEmails {
+    repeated string emails = 1;
+}
+
+message LoginResponse {
+    int32 status = 1;
+    string message = 2;
+    optional string id = 3;
+    optional string token = 4;
+}
+
+message UrlCreationData{
+    string email = 1;
+    string type = 2;
+    optional bool cloudStatus = 3;
+}

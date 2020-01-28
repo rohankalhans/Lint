@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service PyImageValidation {
+    rpc blur_detect(EncodedImage) returns (BlurResponse) {}
+}
+
+message EncodedImage {
+    string image = 1;
+}
+
+message BlurResponse {
+    int32 status = 1;
+    string message = 2;
+}

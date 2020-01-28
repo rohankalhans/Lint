@@ -1,0 +1,1773 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "FACEOPEN - API",
+        "description": "All api description",
+        "contact": {
+            "name": "Ravi Ranjan, Rishabh Sonal , Akhil Regonda",
+            "email": "ravi.ranjan@techolution.com, rishabh@techolution.com, akhil.regonda@techolution.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3500",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "Admin",
+            "description": "API for Admin in the system , developed by: Ravi Ranjan, Rishabh Sonal"
+        },
+        {
+            "name": "Android",
+            "description": "API for Android in the system, developed by:Rishabh Sonal"
+        },
+        {
+            "name": "Email",
+            "description": "API for Emails in the system, developed by:Rishabh Sonal"
+        },
+        {
+            "name": "Lock",
+            "description": "API for Locks in the system, developed by:Rishabh Sonal"
+        },
+        {
+            "name": "Login",
+            "description": "API for Login in the system, developed by: Ravi Ranjan"
+        },
+        {
+            "name": "Recognition",
+            "description": "API for Recognition in the system, developed by: Rishabh Sonal"
+        },
+        {
+            "name": "Registration",
+            "description": "API for Registration in the system, developed by: Ravi Ranjan"
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/admin/get/registration-link": {
+            "parameters": [
+                {
+                    "name": "email, type",
+                    "in": "query",
+                    "required": true,
+                    "description": "Email to create token",
+                    "type": "employee"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Token Generated",
+                "responses": {
+                    "200": {
+                        "description": "Token Genrated",
+                        "schema": {
+                            "$ref": "#/definitions/Add-users"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/send-mail-self-reg": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Create new user in system",
+                "parameters": [
+                    {
+                        "name": "Invite User",
+                        "in": "body",
+                        "description": "Invite User For Registration",
+                        "schema": {
+                            "$ref": "#/definitions/Invite-User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invited Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/User_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/access-req": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Door Access Request",
+                "parameters": [
+                    {
+                        "name": "Door Acsess",
+                        "in": "body",
+                        "description": "Door Access Request",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invited Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/reject-mail": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Reject Person",
+                "parameters": [
+                    {
+                        "name": "Reject",
+                        "in": "body",
+                        "description": "Reject Person and send mail for Re-Registration",
+                        "schema": {
+                            "$ref": "#/definitions/Reject_Request"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invited Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getUsers": {
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "in": "query",
+                    "required": true,
+                    "description": "User_id of user that we want to find or We can find By any input i.e : user_id, email",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get user with given User_id or given Input",
+                "responses": {
+                    "200": {
+                        "description": "User is found",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getNotification": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "When any person register socket will call this APi",
+                "responses": {
+                    "200": {
+                        "description": "Notofication success",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/updateUser": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Update User",
+                "parameters": [
+                    {
+                        "name": "Reject",
+                        "in": "body",
+                        "description": "Update User",
+                        "schema": {
+                            "$ref": "#/definitions/Update_User_Request"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Updated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getCameras": {
+            "parameters": [
+                {
+                    "name": "camera_id",
+                    "in": "query",
+                    "required": true,
+                    "description": "Camera_id of Camera that we want to find or We can find By any input i.e : Camera_id",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Camera with given Camera_id or given Input",
+                "responses": {
+                    "200": {
+                        "description": "Camera is found",
+                        "schema": {
+                            "$ref": "#/definitions/Cameras"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getDoors": {
+            "parameters": [
+                {
+                    "name": "Door_id",
+                    "in": "query",
+                    "required": true,
+                    "description": "Door_id of Door that we want to find or We can find By any input i.e : Door_id",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Door with given Door_id or given Input",
+                "responses": {
+                    "200": {
+                        "description": "Door is found",
+                        "schema": {
+                            "$ref": "#/definitions/Doors"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getLocks": {
+            "parameters": [
+                {
+                    "name": "lock_id",
+                    "in": "query",
+                    "required": true,
+                    "description": "lock_id of lock that we want to find or We can find By any input i.e : lock_id",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Lock with given Lock_id or given Input",
+                "responses": {
+                    "200": {
+                        "description": "Lock is found",
+                        "schema": {
+                            "$ref": "#/definitions/Locks"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/updateDoor": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Update Door",
+                "parameters": [
+                    {
+                        "name": "Reject",
+                        "in": "body",
+                        "description": "Update Door",
+                        "schema": {
+                            "$ref": "#/definitions/Doors"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Door Updated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/updateCamera": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Update Cameras",
+                "parameters": [
+                    {
+                        "name": "Cameras",
+                        "in": "body",
+                        "description": "Update Cameras",
+                        "schema": {
+                            "$ref": "#/definitions/Cameras"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cameras Updated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/updateLock": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Update Locks",
+                "parameters": [
+                    {
+                        "name": "Locks",
+                        "in": "body",
+                        "description": "Update Lock",
+                        "schema": {
+                            "$ref": "#/definitions/Locks"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Updated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/door/deleteDoor?{door_id}": {
+            "parameters": [
+                {
+                    "name": "door_id",
+                    "in": "query",
+                    "required": true,
+                    "description": "ID of user that we want to Delete",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "summary": "Delete Door with given ID",
+                "tags": [
+                    "Admin"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Door is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/deleteCamera?{camera_id}": {
+            "parameters": [
+                {
+                    "name": "camera_id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of camera that we want to Delete",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "summary": "Delete Camera with given ID",
+                "tags": [
+                    "Admin"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Camera is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/deleteLock?{lock_id}": {
+            "parameters": [
+                {
+                    "name": "lock_id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of lock that we want to Delete",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "summary": "Delete Lock with given ID",
+                "tags": [
+                    "Admin"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lock is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getCloudSettings": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Cloud is Enabled Or Not",
+                "responses": {
+                    "200": {
+                        "description": "Cloud Enable or Disable",
+                        "schema": {
+                            "$ref": "#/definitions/Cloud"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getCounts": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Count of All Registered Employee,Registered guest, Alert,Camera",
+                "responses": {
+                    "200": {
+                        "description": "Counts",
+                        "schema": {
+                            "$ref": "#/definitions/Counts"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getAlerts": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Data of Unknown Person from at the time of recogination",
+                "responses": {
+                    "200": {
+                        "description": "Alert",
+                        "schema": {
+                            "$ref": "#/definitions/Alerts"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getActivities": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Data of known Person from at the time of recogination",
+                "responses": {
+                    "200": {
+                        "description": "Activities",
+                        "schema": {
+                            "$ref": "#/definitions/Alerts"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/search/user?role={admin}&status={status}&offset={offset}&limit={limit}&queryString={text}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Search User By Name and Email",
+                "responses": {
+                    "200": {
+                        "description": "User is found",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/quickGrant?id={door_id}": {
+            "parameters": [
+                {
+                    "name": "door_id",
+                    "in": "query",
+                    "required": true,
+                    "description": "door_id of door that we want to give quick grant",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "door_id of door that we want to give quick grant",
+                "responses": {
+                    "200": {
+                        "description": "door of door that we want to give quick grant is found",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/emergencyExit?enabled={Boolean}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get emergency exit to be open",
+                "responses": {
+                    "200": {
+                        "description": "Get emergency exit is found",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/cameras/:camera_id/{action}": {
+            "parameters": [
+                {
+                    "name": "action",
+                    "in": "query",
+                    "required": true,
+                    "description": "action of cameras that we want to find or We can find By any input i.e : cameras_id",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get cameras with given cameras_id or given Input",
+                "responses": {
+                    "200": {
+                        "description": "cameras is found",
+                        "schema": {
+                            "$ref": "#/definitions/cameras"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/updateCloudSetting": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Update Cloud",
+                "parameters": [
+                    {
+                        "name": "Cloud",
+                        "in": "body",
+                        "description": "Update Lock",
+                        "schema": {
+                            "$ref": "#/definitions/Cloud"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Updated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/door/removeCamera": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Update Camera ",
+                "parameters": [
+                    {
+                        "name": "Camera",
+                        "in": "body",
+                        "description": "Update Cameras",
+                        "schema": {
+                            "$ref": "#/definitions/Cameras"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Updated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/match/password": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Update Password",
+                "parameters": [
+                    {
+                        "name": "Password",
+                        "in": "body",
+                        "description": "Update Password",
+                        "schema": {
+                            "$ref": "#/definitions/match_password"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Updated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/reset/password": {
+            "put": {
+                "summary": "Update Admin Password with give User_id",
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [
+                    {
+                        "name": "Admin",
+                        "in": "body",
+                        "description": "Admin with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/reset_password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/make_an_admin": {
+            "put": {
+                "summary": "Update users with give ID",
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/updateSelectedUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/remove_an_admin": {
+            "put": {
+                "summary": "Update users with give ID",
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/updateSelectedUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/terminate_selected_user": {
+            "put": {
+                "summary": "Update users with give ID",
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/updateSelectedUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/revoke_selected_user": {
+            "put": {
+                "summary": "Update users with give ID",
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/updateSelectedUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/delete_selected_user": {
+            "put": {
+                "summary": "Update users with give ID",
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/updateSelectedUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/deleteSelectedDoor": {
+            "put": {
+                "summary": "Update doors with give ID",
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [
+                    {
+                        "name": "Door",
+                        "in": "body",
+                        "description": "Doors with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/updateSelectedDoors"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/deleteSelectedCamera": {
+            "put": {
+                "summary": "Update Cameras with give ID",
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [
+                    {
+                        "name": "Cameras",
+                        "in": "body",
+                        "description": "Cameras with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/updateSelectedCameras"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cameras is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/android/apk-version": {
+            "get": {
+                "tags": [
+                    "Android"
+                ],
+                "summary": "Android Apk Generated",
+                "responses": {
+                    "200": {
+                        "description": "Android Apk Genrated",
+                        "schema": {
+                            "$ref": "#/definitions/AndroidConfig"
+                        }
+                    }
+                }
+            }
+        },
+        "/config/get/email-configuration": {
+            "get": {
+                "tags": [
+                    "Email"
+                ],
+                "summary": "Email Config Found",
+                "responses": {
+                    "200": {
+                        "description": "Email Config Found",
+                        "schema": {
+                            "$ref": "#/definitions/EmailConfig"
+                        }
+                    }
+                }
+            }
+        },
+        "/config/email-configuration": {
+            "post": {
+                "tags": [
+                    "Email"
+                ],
+                "description": "Update Email",
+                "parameters": [
+                    {
+                        "name": "Email",
+                        "in": "body",
+                        "description": "Update Email",
+                        "schema": {
+                            "$ref": "#/definitions/EmailConfig"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Email Updated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lock/status/{lock_id}": {
+            "get": {
+                "tags": [
+                    "Lock"
+                ],
+                "summary": "Lock Found",
+                "responses": {
+                    "200": {
+                        "description": "Lock Found",
+                        "schema": {
+                            "$ref": "#/definitions/LockStatusRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/lock/{lock_id}/{control}": {
+            "get": {
+                "tags": [
+                    "Lock"
+                ],
+                "summary": "Lock Found",
+                "responses": {
+                    "200": {
+                        "description": "Lock Found",
+                        "schema": {
+                            "$ref": "#/definitions/Locks"
+                        }
+                    }
+                }
+            }
+        },
+        "/lock/lockStatus/{lock_id}/{lock_status/{:control_source}/{wifi_strength}/{ip_address}": {
+            "get": {
+                "tags": [
+                    "Lock"
+                ],
+                "summary": "Lock Found",
+                "responses": {
+                    "200": {
+                        "description": "Lock Found",
+                        "schema": {
+                            "$ref": "#/definitions/LockResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/lock/enableBuzzer/{lock_id}/{buzzer}": {
+            "get": {
+                "tags": [
+                    "Lock"
+                ],
+                "summary": "Lock Found",
+                "responses": {
+                    "200": {
+                        "description": "Lock Found",
+                        "schema": {
+                            "$ref": "#/definitions/LockResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/forgotpassword?email={email}": {
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "ForgetPassword Set",
+                "responses": {
+                    "200": {
+                        "description": "LForgetPassword Set",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "description": "User Login Successfully",
+                "parameters": [
+                    {
+                        "name": "Login",
+                        "in": "body",
+                        "description": "Update User",
+                        "schema": {
+                            "$ref": "#/definitions/forgotPassword"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Logedin Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/recognition/apk-version": {
+            "get": {
+                "tags": [
+                    "Recognition"
+                ],
+                "summary": "Recognition Set",
+                "responses": {
+                    "200": {
+                        "description": "Recognition Set",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/recognition/recognise": {
+            "post": {
+                "tags": [
+                    "Recognition"
+                ],
+                "description": "User Recognition Successfully",
+                "parameters": [
+                    {
+                        "name": "Recognition",
+                        "in": "body",
+                        "description": "Update Recognition",
+                        "schema": {
+                            "$ref": "#/definitions/Recognition"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Recognition Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Recognition_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/registration/validate/token": {
+            "post": {
+                "tags": [
+                    "Registration"
+                ],
+                "description": "User Validate Token",
+                "parameters": [
+                    {
+                        "name": "Validate Token",
+                        "in": "body",
+                        "description": "Update validate token",
+                        "schema": {
+                            "$ref": "#/definitions/validate_token"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Token Validated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/validate_token_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/registration/blurdetect": {
+            "post": {
+                "tags": [
+                    "Registration"
+                ],
+                "description": "User Recognition Successfully",
+                "parameters": [
+                    {
+                        "name": "Recognition",
+                        "in": "body",
+                        "description": "Update Recognition",
+                        "schema": {
+                            "$ref": "#/definitions/blurdetect"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Recognition Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/registration/add-user": {
+            "post": {
+                "tags": [
+                    "Registration"
+                ],
+                "description": "User Registration",
+                "parameters": [
+                    {
+                        "name": "Registration",
+                        "in": "body",
+                        "description": "Update Registration",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Registration Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/registration/ratings": {
+            "post": {
+                "tags": [
+                    "Registration"
+                ],
+                "description": "User Rating Successfully",
+                "parameters": [
+                    {
+                        "name": "Rating",
+                        "in": "body",
+                        "description": "Update Rating",
+                        "schema": {
+                            "$ref": "#/definitions/Rating"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Rating Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Generic_Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/registration/userById/{user_id}": {
+            "get": {
+                "tags": [
+                    "Registration"
+                ],
+                "summary": "Get User Details buy User_id",
+                "responses": {
+                    "200": {
+                        "description": "Get User Details buy User_id",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Reject_Request": {
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "comments": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "User_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "Invite-User": {
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "User_Response": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "properties": {
+                "access": {
+                    "type": "object"
+                },
+                "accessPoints": {
+                    "type": "object"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "employee_id": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "object"
+                },
+                "otherDetails": {
+                    "type": "object"
+                }
+            }
+        },
+        "Generic_Response": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Add-users": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Cameras": {
+            "properties": {
+                "blur_threshold": {
+                    "type": "object"
+                },
+                "camera_name": {
+                    "type": "object"
+                },
+                "camera_rtsp": {
+                    "type": "string"
+                },
+                "camera_type": {
+                    "type": "string"
+                },
+                "door_id": {
+                    "type": "string"
+                },
+                "edge_threshold": {
+                    "type": "string"
+                },
+                "face_detection_size": {
+                    "type": "string"
+                },
+                "mac_id": {
+                    "type": "object"
+                },
+                "model_instance": {
+                    "type": "object"
+                },
+                "running": {
+                    "type": "string"
+                },
+                "spoof": {
+                    "type": "object"
+                },
+                "used_for": {
+                    "type": "object"
+                }
+            }
+        },
+        "Doors": {
+            "properties": {
+                "cameras": {
+                    "type": "object"
+                },
+                "door_id": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "string"
+                },
+                "lock_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "object"
+                }
+            }
+        },
+        "Locks": {
+            "properties": {
+                "buzzer": {
+                    "type": "object"
+                },
+                "control_source": {
+                    "type": "object"
+                },
+                "door_id": {
+                    "type": "string"
+                },
+                "ip_address": {
+                    "type": "string"
+                },
+                "lock_id": {
+                    "type": "string"
+                },
+                "lock_status": {
+                    "type": "string"
+                },
+                "wifi_strength": {
+                    "type": "string"
+                }
+            }
+        },
+        "Cloud": {
+            "properties": {
+                "service": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                },
+                "enable": {
+                    "type": "string"
+                }
+            }
+        },
+        "Counts": {
+            "properties": {
+                "admins": {
+                    "type": "string"
+                },
+                "alerts": {
+                    "type": "string"
+                },
+                "devices": {
+                    "type": "string"
+                },
+                "employees": {
+                    "type": "string"
+                },
+                "guests": {
+                    "type": "string"
+                },
+                "terminatedUsers": {
+                    "type": "string"
+                }
+            }
+        },
+        "Alerts": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "door": {
+                    "type": "string"
+                },
+                "door_id": {
+                    "type": "string"
+                },
+                "eventDescription": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
+        "Activities": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "imageInDb": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "door_id": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
+        "match_password": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "reset_password": {
+            "properties": {
+                "user_id": {
+                    "type": "string"
+                },
+                "old": {
+                    "type": "string"
+                },
+                "new": {
+                    "type": "string"
+                },
+                "confirm": {
+                    "type": "string"
+                }
+            }
+        },
+        "updateSelectedUsers": {
+            "properties": {
+                "users": {
+                    "type": "string"
+                },
+                "emails": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "updateSelectedCameras": {
+            "properties": {
+                "Cameras": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "updateSelectedDoors": {
+            "properties": {
+                "Doors": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "AndroidConfig": {
+            "properties": {
+                "apk_url": {
+                    "type": "string"
+                },
+                "apk_version": {
+                    "type": "string"
+                }
+            }
+        },
+        "EmailConfig": {
+            "properties": {
+                "host": {
+                    "type": "string"
+                },
+                "secure": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "fromEmail": {
+                    "type": "string"
+                },
+                "toEmail": {
+                    "type": "string"
+                },
+                "companyDetails": {
+                    "type": "string"
+                },
+                "emergencyContacts": {
+                    "type": "string"
+                }
+            }
+        },
+        "LockResponse": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "lockDetails": {
+                    "type": "string"
+                }
+            }
+        },
+        "LoginDetails": {
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Recognition": {
+            "properties": {
+                "image": {
+                    "type": "string"
+                },
+                "faces": {
+                    "type": "string"
+                },
+                "camera_id": {
+                    "type": "string"
+                },
+                "frame_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "Recognition_Response": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "frame_id": {
+                    "type": "string"
+                },
+                "log": {
+                    "type": "string"
+                }
+            }
+        },
+        "validate_token": {
+            "properties": {
+                "deviceInfo": {
+                    "type": "string"
+                },
+                "onPrem_id": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "validate_token_response": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "dob": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "iat": {
+                    "type": "string"
+                },
+                "rejected": {
+                    "type": "string"
+                }
+            }
+        },
+        "blurdetect": {
+            "properties": {
+                "image": {
+                    "type": "string"
+                }
+            }
+        },
+        "Rating": {
+            "properties": {
+                "rating": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "log": {
+                    "type": "string"
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "comment": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

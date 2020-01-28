@@ -1,0 +1,5 @@
+# /node_modules/* ignored by default
+docs/
+build/
+deploy/
+coverage/
