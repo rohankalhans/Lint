@@ -1,0 +1,35 @@
+name: dev-gateway-service
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - lint/GatewayService/*
+
+env:
+  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+  SERVICE_FOLDER_NAME: "GatewayService"
+  GCR_BASE_PATH: "https://asia.gcr.io"
+  DEV_GCR_DOCKER_IMAGE_PATH: "asia.gcr.io/faceopen-techolution/dev/ms/gateway-service"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Git Checkout - dev
+      uses: actions/checkout@v1
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Build with Node - dev
+      run: |
+        cd $SERVICE_FOLDER_NAME
+        npm i
+        npm lint
+        npm run build
+   
+    
