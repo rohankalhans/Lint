@@ -27,7 +27,7 @@ jobs:
       run: |
         cd Lint/$SERVICE_FOLDER_NAME
         npm i
-        npm lint
+        npm run lint
         npm run build
    
     
