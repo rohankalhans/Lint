@@ -5,7 +5,7 @@ on:
     branches:
     - master
     paths:
-    - lint/GatewayService/*
+    - Lint/GatewayService/*
 
 env:
   SERVICE_FOLDER_NAME: "GatewayService"
