@@ -1,17 +1,15 @@
 name: dev-gateway-service
 
 on:
-  push:
+  pull_request:
     branches:
     - master
     paths:
     - lint/GatewayService/*
 
 env:
-  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
   SERVICE_FOLDER_NAME: "GatewayService"
-  GCR_BASE_PATH: "https://asia.gcr.io"
-  DEV_GCR_DOCKER_IMAGE_PATH: "asia.gcr.io/faceopen-techolution/dev/ms/gateway-service"
+  
 
 jobs:
   build:
