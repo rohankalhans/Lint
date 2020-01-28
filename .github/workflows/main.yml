@@ -25,7 +25,7 @@ jobs:
         node-version: 10.x
     - name: Build with Node - dev
       run: |
-        cd $SERVICE_FOLDER_NAME
+        cd Lint/$SERVICE_FOLDER_NAME
         npm i
         npm lint
         npm run build
