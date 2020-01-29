@@ -3,7 +3,7 @@ name: dev-gateway-service
 on:
   pull_request:
     branches:
-    - master
+    - thrinadh
     paths:
     - Lint/GatewayService/*
 
