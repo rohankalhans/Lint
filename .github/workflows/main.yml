@@ -23,11 +23,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10.x
-    - name: Build with Node - dev
+    - name: lint-test
       run: |
         cd Lint/$SERVICE_FOLDER_NAME
         npm i
         npm run lint
-        npm run build
+        
    
     
