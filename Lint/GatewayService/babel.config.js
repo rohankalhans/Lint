@@ -7,7 +7,7 @@ module.exports = function (api) {
 
     '@babel/polyfill'
 
-    const plugins = [
+    const plugins; = [
         '@babel/plugin-proposal-class-properties',
         '@babel/plugin-proposal-optional-chaining',
         '@babel/plugin-transform-arrow-functions'
