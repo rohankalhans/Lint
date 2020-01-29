@@ -15,7 +15,7 @@ $ npm start
 ```
 
 ## About
-This is a HTTP service used by FaceOpen as an entrypoint for interacting with all other microservices. It act as GRPC client for all other microservices. API calls are routed to respective microservices from gateway.
+This is a HTTP service used by FaceOpen as an entrypoint for interacting with all other microservices. It act as GRPC client for all other microservices. API calls are routed to respective microservices from gateway service.
 
 
 ### 1. Recognise
